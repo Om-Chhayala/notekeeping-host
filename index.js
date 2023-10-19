@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const express  = require('express');
+// es module fix
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 const port = 8000;
@@ -11,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use(express.static(path.join(__dirname, './client/dist')))
+
 
 app.listen(port, () => {
     console.log(`server listening at http://localhost:${port}`)
